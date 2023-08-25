@@ -1,7 +1,7 @@
 import type { Dictionary, StorageClient } from '@crawlee/types';
 
-import { KeyValueStore } from './key_value_store';
 import { Configuration } from '../configuration';
+import { KeyValueStore } from './key_value_store';
 
 interface PurgeDefaultStorageOptions {
     onlyPurgeOnce?: boolean;
@@ -41,10 +41,12 @@ export async function purgeDefaultStorages(
     configOrOptions?: Configuration | PurgeDefaultStorageOptions,
     client?: StorageClient,
 ) {
-    const options: PurgeDefaultStorageOptions = configOrOptions instanceof Configuration ? {
-        client,
-        config: configOrOptions,
-    } : configOrOptions ?? {};
+    const options: PurgeDefaultStorageOptions = configOrOptions instanceof Configuration
+        ? {
+            client,
+            config: configOrOptions,
+        }
+        : configOrOptions ?? {};
     const {
         config = Configuration.getGlobalConfig(),
         onlyPurgeOnce = true,

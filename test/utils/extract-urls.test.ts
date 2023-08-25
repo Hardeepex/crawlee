@@ -1,11 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import {
-    downloadListOfUrls,
-    extractUrls,
-    URL_WITH_COMMAS_REGEX,
-} from '@crawlee/utils';
+import { downloadListOfUrls, extractUrls, URL_WITH_COMMAS_REGEX } from '@crawlee/utils';
 import { gotScraping } from 'got-scraping';
 
 const baseDataPath = path.join(__dirname, '..', 'shared', 'data');
@@ -50,10 +46,11 @@ describe('extractUrls()', () => {
         return { string, array };
     };
 
-    const makeJSON = ({ string, array }: { string: string; array: string[] }) => JSON.stringify({
-        one: [{ http: string }],
-        two: array.map((url) => ({ num: 123, url })),
-    });
+    const makeJSON = ({ string, array }: { string: string; array: string[] }) =>
+        JSON.stringify({
+            one: [{ http: string }],
+            two: array.map((url) => ({ num: 123, url })),
+        });
 
     const makeCSV = (array: string[], delimiter?: string) => array.map((url) => ['ABC', 233, url, '.'].join(delimiter || ',')).join('\n');
 

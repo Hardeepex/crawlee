@@ -16,14 +16,14 @@ import type {
 import { chunk, downloadListOfUrls } from '@crawlee/utils';
 import ow from 'ow';
 
-import type { StorageManagerOptions } from './storage_manager';
-import { StorageManager } from './storage_manager';
-import { purgeDefaultStorages } from './utils';
 import { Configuration } from '../configuration';
 import { log } from '../log';
 import type { ProxyConfiguration } from '../proxy_configuration';
 import type { InternalSource, RequestOptions, Source } from '../request';
 import { Request } from '../request';
+import type { StorageManagerOptions } from './storage_manager';
+import { StorageManager } from './storage_manager';
+import { purgeDefaultStorages } from './utils';
 
 const MAX_CACHED_REQUESTS = 1_000_000;
 
@@ -86,7 +86,6 @@ export function getRequestId(uniqueKey: string) {
  * @internal
  */
 interface RequestQueueOperationInfo extends QueueOperationInfo {
-
     /** Indicates if request was already present in the queue. */
     wasAlreadyPresent: boolean;
 
@@ -97,7 +96,6 @@ interface RequestQueueOperationInfo extends QueueOperationInfo {
     requestId: string;
 
     uniqueKey: string;
-
 }
 
 export interface RequestQueueOperationOptions {

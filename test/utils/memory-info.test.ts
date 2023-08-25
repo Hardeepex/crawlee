@@ -1,9 +1,9 @@
-import { readFile, access } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import { freemem, totalmem } from 'node:os';
 
 import { ENV_VARS } from '@apify/consts';
 import { launchPuppeteer } from '@crawlee/puppeteer';
-import { isDocker, getMemoryInfo } from '@crawlee/utils';
+import { getMemoryInfo, isDocker } from '@crawlee/utils';
 
 jest.mock('node:os', () => {
     const originalOs = jest.requireActual('node:os');

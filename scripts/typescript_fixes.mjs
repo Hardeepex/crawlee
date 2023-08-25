@@ -17,11 +17,11 @@ for (const filepath of files) {
             changed = true;
         } else if (
             // playwright/puppeteer import
-            line.match(/^([^']+)'(playwright|puppeteer)'/) ||
+            line.match(/^([^']+)'(playwright|puppeteer)'/)
             // proxy-per-page reexport of puppeteer
-            line.match(/: Puppeteer\.\w+/) ||
+            || line.match(/: Puppeteer\.\w+/)
             // don't ask me why, but this one is needed too ¯\_(ツ)_/¯
-            line.match(/^export interface (PlaywrightHook|PuppeteerHook)/)
+            || line.match(/^export interface (PlaywrightHook|PuppeteerHook)/)
         ) {
             output.push('// @ts-ignore optional peer dependency');
             output.push(line);

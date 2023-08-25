@@ -1,5 +1,5 @@
-import type { Dictionary, BatchAddRequestsResult } from '@crawlee/types';
-import type { Response as GotResponse, OptionsInit } from 'got-scraping';
+import type { BatchAddRequestsResult, Dictionary } from '@crawlee/types';
+import type { OptionsInit, Response as GotResponse } from 'got-scraping';
 
 import type { EnqueueLinksOptions } from '../enqueue_links/enqueue_links';
 import type { Log } from '../log';

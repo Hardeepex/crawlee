@@ -17,22 +17,22 @@ import type {
     Session,
 } from '@crawlee/basic';
 import {
-    BasicCrawler,
     BASIC_CRAWLER_TIMEOUT_BUFFER_SECS,
+    BasicCrawler,
+    Configuration,
     CrawlerExtension,
     mergeCookies,
-    Router,
-    validators,
-    Configuration,
     RequestState,
+    Router,
     SessionError,
+    validators,
 } from '@crawlee/basic';
 import type { Awaitable, Dictionary } from '@crawlee/types';
 import { RETRY_CSS_SELECTORS } from '@crawlee/utils';
 import * as cheerio from 'cheerio';
 import type { RequestLike, ResponseLike } from 'content-type';
 import contentTypeParser from 'content-type';
-import type { OptionsInit, Method, Request as GotRequest, Options, PlainResponse } from 'got-scraping';
+import type { Method, Options, OptionsInit, PlainResponse, Request as GotRequest } from 'got-scraping';
 import { gotScraping, TimeoutError } from 'got-scraping';
 import iconv from 'iconv-lite';
 import mime from 'mime-types';
@@ -58,7 +58,7 @@ const HTTP_OPTIMIZED_AUTOSCALED_POOL_OPTIONS: AutoscaledPoolOptions = {
 export type HttpErrorHandler<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends JsonValue = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > = ErrorHandler<HttpCrawlingContext<UserData, JSONData>>;
+> = ErrorHandler<HttpCrawlingContext<UserData, JSONData>>;
 
 export interface HttpCrawlerOptions<Context extends InternalHttpCrawlingContext = InternalHttpCrawlingContext> extends BasicCrawlerOptions<Context> {
     /**
@@ -188,14 +188,14 @@ export interface InternalHttpCrawlingContext<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends JsonValue = any, // with default to Dictionary we cant use a typed router in untyped crawler
     Crawler = HttpCrawler<any>,
-    > extends CrawlingContext<Crawler, UserData> {
+> extends CrawlingContext<Crawler, UserData> {
     /**
      * The request body of the web page.
      * The type depends on the `Content-Type` header of the web page:
      * - String for `text/html`, `application/xhtml+xml`, `application/xml` MIME content types
      * - Buffer for others MIME content types
      */
-    body: (string | Buffer);
+    body: string | Buffer;
 
     /**
      * The parsed object from JSON string if the response contains the content type application/json.
@@ -212,12 +212,13 @@ export interface InternalHttpCrawlingContext<
 }
 
 export interface HttpCrawlingContext<UserData extends Dictionary = any, JSONData extends JsonValue = any>
-    extends InternalHttpCrawlingContext<UserData, JSONData, HttpCrawler<HttpCrawlingContext<UserData, JSONData>>> {}
+    extends InternalHttpCrawlingContext<UserData, JSONData, HttpCrawler<HttpCrawlingContext<UserData, JSONData>>>
+{}
 
 export type HttpRequestHandler<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends JsonValue = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > = RequestHandler<HttpCrawlingContext<UserData, JSONData>>;
+> = RequestHandler<HttpCrawlingContext<UserData, JSONData>>;
 
 /**
  * Provides a framework for the parallel crawling of web pages using plain HTTP requests.
@@ -549,7 +550,7 @@ export class HttpCrawler<Context extends InternalHttpCrawlingContext<any, any, H
      */
     protected _applyCookies({ session, request }: CrawlingContext, gotOptions: OptionsInit, preHookCookies: string, postHookCookies: string) {
         const sessionCookie = session?.getCookieString(request.url) ?? '';
-        let alteredGotOptionsCookies = (gotOptions.headers?.Cookie || gotOptions.headers?.cookie || '');
+        let alteredGotOptionsCookies = gotOptions.headers?.Cookie || gotOptions.headers?.cookie || '';
 
         if (gotOptions.headers?.Cookie && gotOptions.headers?.cookie) {
             const {
@@ -558,7 +559,9 @@ export class HttpCrawler<Context extends InternalHttpCrawlingContext<any, any, H
             } = gotOptions.headers;
 
             // eslint-disable-next-line max-len
-            this.log.warning(`Encountered mixed casing for the cookie headers in the got options for request ${request.url} (${request.id}). Their values will be merged`);
+            this.log.warning(
+                `Encountered mixed casing for the cookie headers in the got options for request ${request.url} (${request.id}). Their values will be merged`,
+            );
 
             const sourceCookies = [];
 
@@ -844,9 +847,15 @@ interface RequestFunctionOptions {
  */
 function addResponsePropertiesToStream(stream: GotRequest) {
     const properties = [
-        'statusCode', 'statusMessage', 'headers',
-        'complete', 'httpVersion', 'rawHeaders',
-        'rawTrailers', 'trailers', 'url',
+        'statusCode',
+        'statusMessage',
+        'headers',
+        'complete',
+        'httpVersion',
+        'rawHeaders',
+        'rawTrailers',
+        'trailers',
+        'url',
         'request',
     ];
 

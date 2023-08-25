@@ -12,7 +12,7 @@ import type {
     RequestQueue,
     RouterRoutes,
 } from '@crawlee/http';
-import { HttpCrawler, enqueueLinks, Router, resolveBaseUrlForEnqueueLinksFiltering, tryAbsoluteURL } from '@crawlee/http';
+import { enqueueLinks, HttpCrawler, resolveBaseUrlForEnqueueLinksFiltering, Router, tryAbsoluteURL } from '@crawlee/http';
 import type { Dictionary } from '@crawlee/types';
 import type { CheerioOptions } from 'cheerio';
 import * as cheerio from 'cheerio';
@@ -22,22 +22,22 @@ import { WritableStream } from 'htmlparser2/lib/WritableStream';
 export type CheerioErrorHandler<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > = ErrorHandler<CheerioCrawlingContext<UserData, JSONData>>;
+> = ErrorHandler<CheerioCrawlingContext<UserData, JSONData>>;
 
 export interface CheerioCrawlerOptions<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > extends HttpCrawlerOptions<CheerioCrawlingContext<UserData, JSONData>> {}
+> extends HttpCrawlerOptions<CheerioCrawlingContext<UserData, JSONData>> {}
 
 export type CheerioHook<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > = InternalHttpHook<CheerioCrawlingContext<UserData, JSONData>>;
+> = InternalHttpHook<CheerioCrawlingContext<UserData, JSONData>>;
 
 export interface CheerioCrawlingContext<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > extends InternalHttpCrawlingContext<UserData, JSONData, CheerioCrawler> {
+> extends InternalHttpCrawlingContext<UserData, JSONData, CheerioCrawler> {
     /**
      * The [Cheerio](https://cheerio.js.org/) object with parsed HTML.
      * Cheerio is available only for HTML and XML content types.
@@ -63,7 +63,7 @@ export interface CheerioCrawlingContext<
 export type CheerioRequestHandler<
     UserData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
     JSONData extends Dictionary = any, // with default to Dictionary we cant use a typed router in untyped crawler
-    > = RequestHandler<CheerioCrawlingContext<UserData, JSONData>>;
+> = RequestHandler<CheerioCrawlingContext<UserData, JSONData>>;
 
 /**
  * Provides a framework for the parallel crawling of web pages using plain HTTP requests and

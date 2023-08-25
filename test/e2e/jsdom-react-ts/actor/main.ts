@@ -1,5 +1,5 @@
+import { Dataset, JSDOMCrawler } from '@crawlee/jsdom';
 import { Actor } from 'apify';
-import { JSDOMCrawler, Dataset } from '@crawlee/jsdom';
 
 if (process.env.STORAGE_IMPLEMENTATION === 'LOCAL') {
     // @ts-ignore

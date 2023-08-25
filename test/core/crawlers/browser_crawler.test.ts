@@ -3,19 +3,8 @@ import type { Server } from 'http';
 import { ENV_VARS } from '@apify/consts';
 import log from '@apify/log';
 import { BROWSER_POOL_EVENTS, BrowserPool, OperatingSystemsName, PuppeteerPlugin } from '@crawlee/browser-pool';
-import type {
-    PuppeteerCrawlingContext,
-    PuppeteerGoToOptions,
-    PuppeteerRequestHandler,
-} from '@crawlee/puppeteer';
-import {
-    AutoscaledPool,
-    ProxyConfiguration,
-    Request,
-    RequestList,
-    RequestState,
-    Session,
-} from '@crawlee/puppeteer';
+import type { PuppeteerCrawlingContext, PuppeteerGoToOptions, PuppeteerRequestHandler } from '@crawlee/puppeteer';
+import { AutoscaledPool, ProxyConfiguration, Request, RequestList, RequestState, Session } from '@crawlee/puppeteer';
 import { sleep } from '@crawlee/utils';
 import { gotScraping } from 'got-scraping';
 import puppeteer from 'puppeteer';
@@ -414,7 +403,6 @@ describe('BrowserCrawler', () => {
             requestList,
             useSessionPool: false,
             requestHandler: async () => {},
-
         });
 
         expect(browserCrawler).toBeDefined();
@@ -937,7 +925,7 @@ describe('BrowserCrawler', () => {
                 expect(crawlingContext.session).toBeInstanceOf(Session);
                 expect(typeof crawlingContext.page).toBe('object');
                 expect(crawlingContext.crawler).toBeInstanceOf(BrowserCrawlerTest);
-                expect((crawlingContext.crawler).browserPool).toBeInstanceOf(BrowserPool);
+                expect(crawlingContext.crawler.browserPool).toBeInstanceOf(BrowserPool);
                 expect(crawlingContext.hasOwnProperty('response')).toBe(true);
 
                 expect(crawlingContext.error).toBeInstanceOf(Error);

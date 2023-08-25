@@ -1,5 +1,5 @@
+import { Dataset, LinkeDOMCrawler } from '@crawlee/linkedom';
 import { Actor } from 'apify';
-import { LinkeDOMCrawler, Dataset } from '@crawlee/linkedom';
 import assert from 'node:assert';
 
 if (process.env.STORAGE_IMPLEMENTATION === 'LOCAL') {

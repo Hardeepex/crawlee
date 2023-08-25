@@ -3,9 +3,9 @@ import { URL } from 'url';
 import { purlToRegExp } from '@apify/pseudo_url';
 import { minimatch } from 'minimatch';
 
-import type { EnqueueLinksOptions } from './enqueue_links';
 import type { RequestOptions } from '../request';
 import { Request } from '../request';
+import type { EnqueueLinksOptions } from './enqueue_links';
 
 const MAX_ENQUEUE_LINKS_CACHE_SIZE = 1000;
 
@@ -148,8 +148,8 @@ export function createRequests(
             const { regexp, glob } = excludePatternObject;
 
             if (
-                (regexp && urlToMatch.match(regexp)) || // eslint-disable-line
-                (glob && minimatch(urlToMatch, glob, { nocase: true }))
+                (regexp && urlToMatch.match(regexp)) // eslint-disable-line
+                || (glob && minimatch(urlToMatch, glob, { nocase: true }))
             ) {
                 isExcluded = true;
                 break;
@@ -161,8 +161,8 @@ export function createRequests(
         for (const urlPatternObject of urlPatternObjects) {
             const { regexp, glob, ...requestRegExpOptions } = urlPatternObject;
             if (
-                (regexp && urlToMatch.match(regexp)) || // eslint-disable-line
-                (glob && minimatch(urlToMatch, glob, { nocase: true }))
+                (regexp && urlToMatch.match(regexp)) // eslint-disable-line
+                || (glob && minimatch(urlToMatch, glob, { nocase: true }))
             ) {
                 const request = typeof opts === 'string'
                     ? { url: opts, ...requestRegExpOptions }
@@ -190,8 +190,8 @@ export function filterRequestsByPatterns(requests: Request[], patterns?: UrlPatt
             const { regexp, glob } = urlPatternObject;
 
             if (
-                (regexp && request.url.match(regexp)) || // eslint-disable-line
-                (glob && minimatch(request.url, glob, { nocase: true }))
+                (regexp && request.url.match(regexp)) // eslint-disable-line
+                || (glob && minimatch(request.url, glob, { nocase: true }))
             ) {
                 filtered.push(request);
                 // Break the pattern loop, as we already matched this request once

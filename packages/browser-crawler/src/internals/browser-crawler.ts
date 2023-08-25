@@ -20,11 +20,11 @@ import {
     enqueueLinks,
     EVENT_SESSION_RETIRED,
     handleRequestTimeout,
-    tryAbsoluteURL,
     RequestState,
     resolveBaseUrlForEnqueueLinksFiltering,
-    validators,
     SessionError,
+    tryAbsoluteURL,
+    validators,
 } from '@crawlee/basic';
 import type {
     BrowserController,
@@ -74,10 +74,8 @@ export interface BrowserCrawlerOptions<
     // Overridden with browser context
     | 'requestHandler'
     | 'handleRequestFunction'
-
     | 'failedRequestHandler'
     | 'handleFailedRequestFunction'
-
     | 'errorHandler'
 > {
     launchContext?: BrowserLaunchContext<any, any>;

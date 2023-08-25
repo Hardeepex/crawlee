@@ -4,13 +4,13 @@ import type { Log } from '@apify/log';
 import type { Dictionary } from '@crawlee/types';
 import ow from 'ow';
 
-import type { SessionOptions } from './session';
-import { Session } from './session';
 import { Configuration } from '../configuration';
 import type { EventManager } from '../events/event_manager';
 import { EventType } from '../events/event_manager';
 import { log as defaultLog } from '../log';
 import { KeyValueStore } from '../storages/key_value_store';
+import type { SessionOptions } from './session';
+import { Session } from './session';
 
 /**
  * Factory user-function which creates customized {@apilink Session} instances.
@@ -210,7 +210,9 @@ export class SessionPool extends EventEmitter {
 
         if (!this.persistStateKeyValueStoreId) {
             // eslint-disable-next-line max-len
-            this.log.debug(`No 'persistStateKeyValueStoreId' options specified, this session pool's data has been saved in the KeyValueStore with the id: ${this.keyValueStore.id}`);
+            this.log.debug(
+                `No 'persistStateKeyValueStoreId' options specified, this session pool's data has been saved in the KeyValueStore with the id: ${this.keyValueStore.id}`,
+            );
         }
 
         // in case of migration happened and SessionPool state should be restored from the keyValueStore.

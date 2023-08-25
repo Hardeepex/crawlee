@@ -1,5 +1,5 @@
-import { Actor } from 'apify';
 import { Dataset, PuppeteerCrawler } from '@crawlee/puppeteer';
+import { Actor } from 'apify';
 
 await Actor.init({ storage: process.env.STORAGE_IMPLEMENTATION === 'LOCAL' ? new (await import('@apify/storage-local')).ApifyStorageLocal() : undefined });
 
@@ -34,10 +34,10 @@ crawler.router.addHandler('DETAIL', async ({ log, page, request: { url } }) => {
     log.info(`Scraping ${url}`);
 
     const uniqueIdentifier = url.split('/').slice(-2).join('/');
-    const titleP = page.$eval('header h1', ((el) => el.textContent));
-    const descriptionP = page.$eval('header p.ActorHeader-description', ((el) => el.textContent));
+    const titleP = page.$eval('header h1', (el) => el.textContent);
+    const descriptionP = page.$eval('header p.ActorHeader-description', (el) => el.textContent);
     const modifiedTimestampP = page.$eval('ul.ActorHeader-userMedallion time', (el) => el.getAttribute('datetime'));
-    const runCountTextP = page.$eval('ul.ActorHeader-userMedallion li:nth-of-type(4)', ((el) => el.textContent));
+    const runCountTextP = page.$eval('ul.ActorHeader-userMedallion li:nth-of-type(4)', (el) => el.textContent);
     const [
         title,
         description,

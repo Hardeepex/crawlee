@@ -1,4 +1,4 @@
-import { PlaywrightCrawler, downloadListOfUrls } from 'crawlee';
+import { downloadListOfUrls, PlaywrightCrawler } from 'crawlee';
 
 const crawler = new PlaywrightCrawler({
     // Function called for each URL
