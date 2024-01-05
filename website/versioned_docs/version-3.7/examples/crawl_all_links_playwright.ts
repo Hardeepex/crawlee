@@ -9,5 +9,7 @@ const crawler = new PlaywrightCrawler({
     maxRequestsPerCrawl: 10, // Limitation for only 10 requests (do not use if you want to crawl all links)
 });
 
+export { requestHandler };
+
 // Run the crawler with initial request
 await crawler.run(['https://crawlee.dev']);
